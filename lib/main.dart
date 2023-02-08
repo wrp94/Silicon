@@ -32,11 +32,17 @@ class _NewGameState extends State<NewGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: const [
-          Text("New game"),
-        ],
-      ),
+        body: SafeArea(
+          top: true,
+          bottom: true,
+          left: false,
+          right: false,
+          child: Column(
+            children: const [
+              Text("New game"),
+            ],
+          ),
+        ),
     );
   }
 }
