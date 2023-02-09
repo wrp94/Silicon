@@ -105,9 +105,6 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-  void _navigateToIconSelect() {
-    Navigator.of(context).pushNamed('/newGame/selectIcons');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,8 +119,8 @@ class _NewGameState extends State<NewGame> {
         right: false,
         child: Center(
           child: Column(
-            children: [
-              const Padding(
+            children: const [
+              Padding(
                 padding: EdgeInsets.all(5),
                 child: Text(
                   "How many players?",
@@ -132,23 +129,46 @@ class _NewGameState extends State<NewGame> {
                   ),
                 ),
               ),
-              const SizedBox(width: 200.0, height: 100.0),
-              ElevatedButton(
-                onPressed: (() {
-                  AppStateWidget.of(context)._data.numPlayers = 2;
-                  _navigateToIconSelect();
-                }),
-                child: const Padding(
-                  padding: EdgeInsets.all(6),
-                  child: Text(
-                    "2",
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(width: 200.0, height: 100.0),
+              PlayerButton(2),
+              PlayerButton(3),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayerButton extends StatefulWidget {
+  const PlayerButton(this.playerNumber, {Key? key}) : super(key: key);
+  final int playerNumber;
+
+  @override
+  State<PlayerButton> createState() => PlayerButtonState();
+}
+
+class PlayerButtonState extends State<PlayerButton> {
+  PlayerButtonState();
+
+  void _navigateToIconSelect(BuildContext context) {
+    Navigator.of(context).pushNamed('/newGame/selectIcons');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var numPlayers = widget.playerNumber;
+    return ElevatedButton(
+      onPressed: () {
+        AppStateWidget.of(context)._data.numPlayers = numPlayers;
+        _navigateToIconSelect(context);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: Text(
+          numPlayers.toString(),
+          style: const TextStyle(
+            fontSize: 30,
           ),
         ),
       ),
