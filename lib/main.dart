@@ -4,11 +4,11 @@ void main() => runApp(const SiliconApp());
 
 class SiliconApp extends StatelessWidget {
   const SiliconApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return AppStateWidget(
+        child: MaterialApp(
       title: 'Silicon',
       theme: ThemeData.dark(),
       routes: {
@@ -16,6 +16,52 @@ class SiliconApp extends StatelessWidget {
         '/newGame': (context) => const NewGame(),
         '/newGame/selectIcons': (context) => const SelectIcons(),
       },
+    ));
+  }
+}
+
+class AppState {
+  int? numPlayers;
+  AppState(this.numPlayers);
+}
+
+class AppStateScope extends InheritedWidget {
+  final AppState data;
+
+  const AppStateScope(this.data, {Key? key, required Widget child})
+      : super(key: key, child: child);
+
+  static AppState of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<AppStateScope>()!.data;
+  }
+
+  @override
+  bool updateShouldNotify(AppStateScope oldWidget) {
+    return data != oldWidget.data;
+  }
+}
+
+class AppStateWidget extends StatefulWidget {
+  final Widget child;
+
+  const AppStateWidget({required this.child, Key? key}) : super(key: key);
+
+  static AppStateWidgetState of(BuildContext context) {
+    return context.findAncestorStateOfType<AppStateWidgetState>()!;
+  }
+
+  @override
+  AppStateWidgetState createState() => AppStateWidgetState();
+}
+
+class AppStateWidgetState extends State<AppStateWidget> {
+  final AppState _data = AppState(0);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppStateScope(
+      _data,
+      child: widget.child,
     );
   }
 }
@@ -59,7 +105,6 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-
   void _navigateToIconSelect() {
     Navigator.of(context).pushNamed('/newGame/selectIcons');
   }
@@ -89,11 +134,14 @@ class _NewGameState extends State<NewGame> {
               ),
               const SizedBox(width: 200.0, height: 100.0),
               ElevatedButton(
-                onPressed: _navigateToIconSelect,
+                onPressed: (() {
+                  AppStateWidget.of(context)._data.numPlayers = 2;
+                  _navigateToIconSelect();
+                }),
                 child: const Padding(
                   padding: EdgeInsets.all(6),
                   child: Text(
-                    "data",
+                    "2",
                     style: TextStyle(
                       fontSize: 30,
                     ),
