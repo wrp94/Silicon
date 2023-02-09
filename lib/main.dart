@@ -120,7 +120,7 @@ class _NewGameState extends State<NewGame> {
           child: Column(
             children: const [
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(10),
                 child: Text(
                   "How many players?",
                   style: TextStyle(
@@ -128,9 +128,16 @@ class _NewGameState extends State<NewGame> {
                   ),
                 ),
               ),
-              SizedBox(width: 200.0, height: 100.0),
+              SizedBox(width: 200.0, height: 30.0),
               PlayerButton(2),
+              SizedBox(height: 50,),
               PlayerButton(3),
+              SizedBox(height: 50,),
+              PlayerButton(4),
+              SizedBox(height: 50,),
+              PlayerButton(5),
+              SizedBox(height: 50,),
+              PlayerButton(6),
             ],
           ),
         ),
@@ -163,6 +170,7 @@ class PlayerButtonState extends State<PlayerButton> {
         backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
         textStyle: MaterialStateProperty.all(
             const TextStyle(fontSize: 40)),
+        minimumSize: MaterialStateProperty.all(const Size(300, 50)),
       ),
       onPressed: () {
         AppStateWidget.of(context)._data.numPlayers = numPlayers;
