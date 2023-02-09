@@ -59,6 +59,11 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
+
+  void _navigateToIconSelect() {
+    Navigator.of(context).pushNamed('/newGame/selectIcons');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +77,27 @@ class _NewGameState extends State<NewGame> {
         right: false,
         child: Center(
           child: Column(
-            children: const [
-              Text(
-                "How many players?",
-                style: TextStyle(
-                  fontSize: 36,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(5),
+                child: Text(
+                  "How many players?",
+                  style: TextStyle(
+                    fontSize: 36,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 200.0, height: 100.0),
+              ElevatedButton(
+                onPressed: _navigateToIconSelect,
+                child: const Padding(
+                  padding: EdgeInsets.all(6),
+                  child: Text(
+                    "data",
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
                 ),
               ),
             ],
