@@ -14,17 +14,20 @@ class SiliconApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyHomePage(),
         '/newGame': (context) => const NewGame(),
-        '/newGame/selectIcons': (context) => const SelectIcons(),
+        '/newGame/chooser': (context) => const Chooser(),
       },
     ));
   }
 }
 
+/// AppState is a class that has a single property called numPlayers, which is an
+/// integer.
 class AppState {
-  int? numPlayers;
+  int numPlayers;
   AppState(this.numPlayers);
 }
 
+/// It's a widget that provides a value to its descendants
 class AppStateScope extends InheritedWidget {
   final AppState data;
 
@@ -41,6 +44,8 @@ class AppStateScope extends InheritedWidget {
   }
 }
 
+/// `AppStateWidget` is a `StatefulWidget` that provides a `State` object to its
+/// descendants
 class AppStateWidget extends StatefulWidget {
   final Widget child;
 
@@ -54,6 +59,8 @@ class AppStateWidget extends StatefulWidget {
   AppStateWidgetState createState() => AppStateWidgetState();
 }
 
+/// `AppStateWidget` is a `StatefulWidget` that wraps the `AppStateScope` widget,
+/// which is a `StatelessWidget`
 class AppStateWidgetState extends State<AppStateWidget> {
   final AppState _data = AppState(0);
 
@@ -66,37 +73,16 @@ class AppStateWidgetState extends State<AppStateWidget> {
   }
 }
 
-class SelectIcons extends StatefulWidget {
-  const SelectIcons({super.key});
+class Chooser extends StatelessWidget {
+  const Chooser({super.key});
 
-  @override
-  State<SelectIcons> createState() => _SelectIconsState();
-}
-
-class _SelectIconsState extends State<SelectIcons> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Icons'),
-      ),
-      body: SafeArea(
-        top: true,
-        bottom: true,
-        left: false,
-        right: false,
-        child: Center(
-          child: Column(
-            children: const [
-              Text('yeet'),
-            ],
-          ),
-        ),
-      ),
-    );
+    throw UnimplementedError();
   }
 }
 
+/// `NewGame` is a stateful widget that creates a `_NewGameState` object
 class NewGame extends StatefulWidget {
   const NewGame({super.key});
 
@@ -104,6 +90,8 @@ class NewGame extends StatefulWidget {
   State<NewGame> createState() => _NewGameState();
 }
 
+/// It's a stateful widget that displays a screen with a title and a bunch of
+/// buttons that let you choose how many players you want to play with
 class _NewGameState extends State<NewGame> {
   @override
   Widget build(BuildContext context) {
@@ -130,13 +118,21 @@ class _NewGameState extends State<NewGame> {
               ),
               SizedBox(width: 200.0, height: 30.0),
               PlayerButton(2),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               PlayerButton(3),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               PlayerButton(4),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               PlayerButton(5),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               PlayerButton(6),
             ],
           ),
@@ -146,6 +142,7 @@ class _NewGameState extends State<NewGame> {
   }
 }
 
+/// `PlayerButton` is a stateful widget that displays a button for a player
 class PlayerButton extends StatefulWidget {
   const PlayerButton(this.playerNumber, {Key? key}) : super(key: key);
   final int playerNumber;
@@ -154,11 +151,14 @@ class PlayerButton extends StatefulWidget {
   State<PlayerButton> createState() => PlayerButtonState();
 }
 
+/// This class is a stateful widget that displays a button with a number on it. When
+/// the button is pressed, it sets the number of players in the app state and
+/// navigates to the chooser screen
 class PlayerButtonState extends State<PlayerButton> {
   PlayerButtonState();
 
-  void _navigateToIconSelect(BuildContext context) {
-    Navigator.of(context).pushNamed('/newGame/selectIcons');
+  void _navigateToChooser(BuildContext context) {
+    Navigator.of(context).pushNamed('/newGame/chooser');
   }
 
   @override
@@ -168,13 +168,12 @@ class PlayerButtonState extends State<PlayerButton> {
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.white70),
         backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
-        textStyle: MaterialStateProperty.all(
-            const TextStyle(fontSize: 40)),
+        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 40)),
         minimumSize: MaterialStateProperty.all(const Size(300, 50)),
       ),
       onPressed: () {
         AppStateWidget.of(context)._data.numPlayers = numPlayers;
-        _navigateToIconSelect(context);
+        _navigateToChooser(context);
       },
       child: Padding(
         padding: const EdgeInsets.all(6),
@@ -189,6 +188,7 @@ class PlayerButtonState extends State<PlayerButton> {
   }
 }
 
+/// `MyHomePage` is a `StatefulWidget` that creates a `_MyHomePageState` object
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -196,6 +196,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+/// _MyHomePageState is a subclass of State, which is a subclass of Object
 class _MyHomePageState extends State<MyHomePage> {
   void _navigateToNewGame() {
     Navigator.of(context).pushNamed('/newGame');
