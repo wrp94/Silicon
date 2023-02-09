@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const SiliconApp());
 
-
 class SiliconApp extends StatelessWidget {
   const SiliconApp({super.key});
 
@@ -28,21 +27,25 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          top: true,
-          bottom: true,
-          left: false,
-          right: false,
-          child: Column(
-            children: const [
-              Text("New game"),
-            ],
-          ),
+      appBar: AppBar(
+        title: Text(
+          "New Game"
         ),
+      ),
+      body: SafeArea(
+        top: true,
+        bottom: true,
+        left: false,
+        right: false,
+        child: Column(
+          children: const [
+            Text("How many players?"),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -50,18 +53,14 @@ class _NewGameState extends State<NewGame> {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
-
   void _navigateToNewGame() {
     Navigator.of(context).pushNamed('/newGame');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,23 +78,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(Colors.white70),
                     backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
-                    textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 40)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(fontSize: 40)),
                   ),
                   onPressed: _navigateToNewGame,
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                        "New Game",
+                      "New Game",
                     ),
-                  )
-              )
+                  ))
             ],
           ),
         ),
       ),
     );
   }
-
 }
-
-
