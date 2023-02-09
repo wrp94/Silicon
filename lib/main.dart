@@ -14,7 +14,39 @@ class SiliconApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyHomePage(),
         '/newGame': (context) => const NewGame(),
+        '/newGame/selectIcons': (context) => const SelectIcons(),
       },
+    );
+  }
+}
+
+class SelectIcons extends StatefulWidget {
+  const SelectIcons({super.key});
+
+  @override
+  State<SelectIcons> createState() => _SelectIconsState();
+}
+
+class _SelectIconsState extends State<SelectIcons> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Select Icons'),
+      ),
+      body: SafeArea(
+        top: true,
+        bottom: true,
+        left: false,
+        right: false,
+        child: Center(
+          child: Column(
+            children: const [
+              Text('yeet'),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -31,19 +63,24 @@ class _NewGameState extends State<NewGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "New Game"
-        ),
+        title: const Text("New Game"),
       ),
       body: SafeArea(
         top: true,
         bottom: true,
         left: false,
         right: false,
-        child: Column(
-          children: const [
-            Text("How many players?"),
-          ],
+        child: Center(
+          child: Column(
+            children: const [
+              Text(
+                "How many players?",
+                style: TextStyle(
+                  fontSize: 36,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
