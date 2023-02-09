@@ -105,7 +105,6 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,6 +158,12 @@ class PlayerButtonState extends State<PlayerButton> {
   Widget build(BuildContext context) {
     var numPlayers = widget.playerNumber;
     return ElevatedButton(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.white70),
+        backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+        textStyle: MaterialStateProperty.all(
+            const TextStyle(fontSize: 40)),
+      ),
       onPressed: () {
         AppStateWidget.of(context)._data.numPlayers = numPlayers;
         _navigateToIconSelect(context);
