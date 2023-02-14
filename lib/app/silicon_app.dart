@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:silicon/screens/home_screen.dart';
 import 'package:silicon/screens/new_game.dart';
-import 'package:silicon/screens/chooser.dart';
+import 'package:silicon/screens/player_selector.dart';
 import 'package:silicon/widgets/app_state.dart';
 
 class SiliconApp extends StatelessWidget {
@@ -16,7 +16,7 @@ class SiliconApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyHomePage(),
         '/newGame': (context) => const NewGame(),
-        '/newGame/chooser': (context) => const Chooser(),
+        '/newGame/chooser': (context) => const PlayerSelector(),
       },
     ));
   }
